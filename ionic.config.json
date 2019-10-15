@@ -1,5 +1,7 @@
 {
   "name": "forca",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

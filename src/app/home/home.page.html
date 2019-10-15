@@ -8,17 +8,13 @@
 
 <ion-content>
   <div class="ion-padding">
-    <ion-item *ngIf="resposta.length > 0">
-      <ion-chip outline color="secondary">
-        <ion-label>Quantidade de Letras {{tamanho}}</ion-label>
-      </ion-chip>
-      <ion-chip>
-        <ion-label color="danger">Erros {{erros}}</ion-label>
-      </ion-chip>
-      <ion-chip>
-        <ion-label>Letras usadas {{usadas}}</ion-label>
-      </ion-chip>
-    </ion-item>
+    <div *ngIf="resposta.length > 0">
+      <ion-label color="success">Quantidade de Letras {{tamanho}}</ion-label>
+      <br>
+      <ion-label color="danger">Erros {{erros}}</ion-label>
+      <br>
+      <ion-label color="primary">Letras usadas: {{usadas}}</ion-label>
+    </div>
     <ion-input *ngIf="resposta.length > 0" placeholder="Adicione uma Letra" [(ngModel)]="letra"></ion-input>
     <ion-grid>
       <ion-row color="danger">
