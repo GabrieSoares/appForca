@@ -8,9 +8,15 @@
 
 <ion-content>
   <div class="ion-padding">
-    <ion-label>Erros {{erros}}</ion-label>
-    <br>
-    <ion-label>Usadas {{usadas}}</ion-label>
+    <ion-item *ngIf="resposta.length > 0">
+      <ion-chip outline color="secondary">
+        <ion-label>Quantidade de Letras {{tamanho}}</ion-label>
+      </ion-chip>
+      <ion-chip>
+        <ion-label color="danger">Erros {{erros}}</ion-label>
+      </ion-chip>
+    </ion-item>
+    <ion-label *ngIf="resposta.length > 0">Letras usadas:{{usadas}}</ion-label>
     <ion-input *ngIf="resposta.length > 0" placeholder="Adicione uma Letra" [(ngModel)]="letra"></ion-input>
     <ion-grid>
       <ion-row color="danger">
@@ -20,7 +26,8 @@
       </ion-row>
     </ion-grid>
     <ion-button *ngIf="resposta.length == 0" (click)="sortear()">
-      <ion-icon  name="refresh"></ion-icon>
+      <ion-icon name="refresh"></ion-icon>
+      Novo Jogo
     </ion-button>
     <ion-button *ngIf="resposta.length > 0" (click)="validar(letra)">
       <ion-icon name="search"></ion-icon>
