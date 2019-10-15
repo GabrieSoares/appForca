@@ -15,8 +15,10 @@
       <ion-chip>
         <ion-label color="danger">Erros {{erros}}</ion-label>
       </ion-chip>
+      <ion-chip>
+        <ion-label>Letras usadas {{usadas}}</ion-label>
+      </ion-chip>
     </ion-item>
-    <ion-label *ngIf="resposta.length > 0">Letras usadas:{{usadas}}</ion-label>
     <ion-input *ngIf="resposta.length > 0" placeholder="Adicione uma Letra" [(ngModel)]="letra"></ion-input>
     <ion-grid>
       <ion-row color="danger">
