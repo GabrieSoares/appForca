@@ -1,14 +1,29 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Jogo da Forca
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+    <ion-label>Erros {{erros}}</ion-label>
+    <br>
+    <ion-label>Usadas {{usadas}}</ion-label>
+    <ion-input *ngIf="resposta.length > 0" placeholder="Adicione uma Letra" [(ngModel)]="letra"></ion-input>
+    <ion-grid>
+      <ion-row color="danger">
+        <ion-col *ngFor="let ltr of resposta">
+          &nbsp;{{ltr}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button *ngIf="resposta.length == 0" (click)="sortear()">
+      <ion-icon  name="refresh"></ion-icon>
+    </ion-button>
+    <ion-button *ngIf="resposta.length > 0" (click)="validar(letra)">
+      <ion-icon name="search"></ion-icon>
+    </ion-button>
   </div>
 </ion-content>
