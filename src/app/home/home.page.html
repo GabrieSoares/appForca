@@ -16,6 +16,10 @@
       <ion-label color="primary">Letras usadas: {{usadas}}</ion-label>
     </div>
     <ion-input *ngIf="resposta.length > 0" placeholder="Adicione uma Letra" [(ngModel)]="letra"></ion-input>
+    <ion-button *ngIf="resposta.length > 0 && letra != null" (click)="validar(letra)">
+      <ion-icon name="search"></ion-icon>
+    </ion-button>
+
     <ion-grid>
       <ion-row color="danger">
         <ion-col *ngFor="let ltr of resposta">
@@ -27,8 +31,6 @@
       <ion-icon name="refresh"></ion-icon>
       Novo Jogo
     </ion-button>
-    <ion-button *ngIf="resposta.length > 0" (click)="validar(letra)">
-      <ion-icon name="search"></ion-icon>
-    </ion-button>
+
   </div>
 </ion-content>
