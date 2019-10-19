@@ -10,6 +10,9 @@ export class ForcaService {
   private rankingCollection: AngularFirestoreCollection<Ranking>
   palavras: Observable<Palavras[]>;
   ranking: Observable<Ranking[]>;
+  lista = [];
+  palavraSorteada: string;
+  tamanho: number;
 
   constructor(private afs: AngularFirestore) {
     this.palvraCollection = afs.collection<Palavras>('Palavras');
@@ -17,17 +20,28 @@ export class ForcaService {
     this.palavras = this.palvraCollection.valueChanges();
     this.ranking = this.rankingCollection.valueChanges();
   }
-
+  //Palavra
   public listar() {
     return this.palavras;
   }
+  public sortear() {
+    //return this.palavraSorteada = this.palavras[this.aleatorio()]["palavra"].split("");
+    return this.palavraSorteada.toString();
+  }
+
+
+
+  //Ranking
   public listarRanking() {
     return this.ranking;
   }
 
+  public inserir(ranking: Ranking) {
+    const id = this.afs.createId();
+    return this.rankingCollection.doc(id).set({ ...ranking, id });
+  }
 }
 export class Palavras {
-  id: string;
   palavra: string;
   categoria: string;
   dica: string;

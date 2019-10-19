@@ -8,29 +8,20 @@
 
 <ion-content>
   <div class="ion-padding">
-    <div *ngIf="resposta.length > 0">
-      <ion-label color="success">Quantidade de Letras {{tamanho}}</ion-label>
-      <br>
-      <ion-label color="danger">Erros {{erros}}</ion-label>
-      <br>
-      <ion-label color="primary">Letras usadas: {{usadas}}</ion-label>
-    </div>
-    <ion-input *ngIf="resposta.length > 0" placeholder="Adicione uma Letra" [(ngModel)]="letra"></ion-input>
-    <ion-button *ngIf="resposta.length > 0 && letra != null" (click)="validar(letra)">
-      <ion-icon name="search"></ion-icon>
-    </ion-button>
+    <h4>Ranking de Pontos</h4>
+    <ion-item *ngFor="let rank of ranking|async">
+      <ion-label>
+        <h2>Jogador: {{rank.Jogador}}</h2>
+        <h2>Pontuação: {{rank.Pontos}}</h2>
+      </ion-label>
+    </ion-item>
 
-    <ion-grid>
-      <ion-row color="danger">
-        <ion-col *ngFor="let ltr of resposta">
-          &nbsp;{{ltr}}
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-button *ngIf="resposta.length == 0" (click)="sortear()">
-      <ion-icon name="refresh"></ion-icon>
-      Novo Jogo
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-button (click)="jogar()">
+      <ion-icon name="logo-game-controller-a"></ion-icon>
+      <label> Novo Jogo</label>
     </ion-button>
+    </ion-fab>
 
   </div>
 </ion-content>
