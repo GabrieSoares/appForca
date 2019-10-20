@@ -7,11 +7,15 @@
 <ion-content>
   <div class="ion-padding">
     <div *ngIf="resposta.length > 0">
-      <ion-label color="success">Quantidade de Letras {{tamanho}}</ion-label>
+      <img src="assets/img/inicio.jpg" *ngIf="erros == 1">
+      <img src="assets/img/2.jpg" *ngIf="erros == 2">
+      <img src="assets/img/3.jpg" *ngIf="erros == 3">
+      <img src="assets/img/4.jpg" *ngIf="erros == 4">
+      <img src="assets/img/5.jpg" *ngIf="erros == 5">
+      <img src="assets/img/fim.jpg" *ngIf="erros == 6">
+      <ion-label color="success">Categoria {{categoria}}</ion-label>
       <br>
-      <ion-label color="danger">Erros {{erros}}</ion-label>
-      <br>
-      <ion-label color="primary">Letras usadas: {{usadas}}</ion-label>
+      <ion-label *ngIf="erros >= 3" color="primary">dica: {{dica}}</ion-label>
     </div>
 
     <ion-grid>
@@ -23,15 +27,17 @@
     </ion-grid>
     <br>
     <br>
-    
+
   </div>
 </ion-content>
 <ion-footer>
-  <ion-grid *ngIf="resposta.length > 0">
-    <ion-row>
-      <ion-col *ngFor="let alf of alfabeto" (click)="validar(alf)" disabled="false" class="alfabeto">
-        <label>{{alf}}</label>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="ion-padding">
+    <ion-grid *ngIf="resposta.length > 0">
+      <ion-row>
+        <ion-col *ngFor="let alf of alfabeto" (click)="validar(alf)" disabled="false" class="alfabeto">
+          <label>{{alf}}</label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-footer>
