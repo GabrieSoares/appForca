@@ -16,9 +16,7 @@ export class ForcaService {
 
   constructor(private afs: AngularFirestore) {
     this.palvraCollection = afs.collection<Palavras>('Palavras');
-    this.rankingCollection = afs.collection<Ranking>('Ranking');
     this.palavras = this.palvraCollection.valueChanges();
-    this.ranking = this.rankingCollection.valueChanges();
   }
   //Palavra
   public listar() {
@@ -33,7 +31,8 @@ export class ForcaService {
 
   //Ranking
   public listarRanking() {
-    return this.ranking;
+    this.rankingCollection = this.afs.collection<Ranking>('Ranking', ref => ref.orderBy("pontos", "desc").limit(10));
+    return this.rankingCollection.valueChanges();
   }
 
   public inserir(ranking: Ranking) {

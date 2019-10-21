@@ -113,7 +113,7 @@ export class JogoPage {
   async alertaVitoria() {
     const alert = await this.alertController.create({
       header: 'Parabéns!',
-      message: "você acertou a palavra Sorteda, siga em frente para somar mais pontos!",
+      message: `Você acertou a palavra ${this.palavraSorteada}, siga em frente para somar mais pontos!`,
       buttons: [{
         text: 'Proxima',
         handler: (alertData) => {
