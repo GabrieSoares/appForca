@@ -15,22 +15,21 @@ export class ForcaService {
   tamanho: number;
 
   constructor(private afs: AngularFirestore) {
-    this.palvraCollection = afs.collection<Palavras>('Palavras');
+    this.palvraCollection = afs.collection<Palavras>('Palavra');
     this.palavras = this.palvraCollection.valueChanges();
   }
   //Palavra
   public listar() {
     return this.palavras;
   }
-  public sortear() {
-    //return this.palavraSorteada = this.palavras[this.aleatorio()]["palavra"].split("");
-    return this.palavraSorteada.toString();
+
+  public inserirPalavra(Palavra) {
+    const id = this.afs.createId();
+    return this.palvraCollection.doc(id).set({...Palavra,id});
   }
 
-
-
   //Ranking
-  public listarRanking() {
+  public listarRanking(): Observable<Ranking[]>{
     this.rankingCollection = this.afs.collection<Ranking>('Ranking', ref => ref.orderBy("pontos", "desc").limit(10));
     return this.rankingCollection.valueChanges();
   }

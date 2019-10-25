@@ -8,20 +8,18 @@
 
 <ion-content>
   <div class="ion-padding">
-    <h4>Ranking de Pontos</h4>
+    <h5>Ranking de Pontos</h5>
     <ion-item *ngFor="let rank of ranking|async">
       <ion-label>
         <h2>Jogador: {{rank.jogador}}</h2>
         <h2>Pontuação: {{rank.pontos}}</h2>
       </ion-label>
     </ion-item>
-
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-button (click)="jogar()">
       <ion-icon name="logo-game-controller-a"></ion-icon>
       <label> Novo Jogo</label>
     </ion-button>
-    </ion-fab>
-
-  </div>
+  </ion-fab>
 </ion-content>

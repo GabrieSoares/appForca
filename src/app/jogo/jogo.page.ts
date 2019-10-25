@@ -3,6 +3,7 @@ import { ForcaService, Palavras, Ranking } from '../forca.service';
 import { AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-jogo',
@@ -10,10 +11,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./jogo.page.scss'],
 })
 
-export class JogoPage {
+export class JogoPage implements OnInit {
 
   palavras = [];
-  alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Ç"];
+  alfabeto = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Ç", "-"];
   palavraSorteada: string;
   dica: string;
   categoria: string;
@@ -22,17 +23,16 @@ export class JogoPage {
   tamanho: number;
   resposta = [];
   usadas = "";
-  letra: string;
   erros = 0;
+  palavrasIn = [];
 
   constructor(public alertController: AlertController,
     private forcaService: ForcaService,
     public router: Router, ) { }
 
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this.listarPalavra();
-    this.ranking = new Ranking();
   }
 
   listarPalavra() {
@@ -41,6 +41,7 @@ export class JogoPage {
 
   sortear() {
     let posicao = this.aleatorio();
+
     this.palavraSorteada = this.palavras[posicao].palavra;
     this.dica = this.palavras[posicao].dica;
     this.categoria = this.palavras[posicao].categoria;
@@ -49,14 +50,22 @@ export class JogoPage {
   }
 
   aleatorio() {
-    return Math.floor(Math.random() * (this.palavras.length - 0) + 0);
+    let number = Math.floor(Math.random() * (this.palavras.length - 0) + 0);
+    return number;
   }
 
+  gravar() {
+    for (let i = 0; i < this.palavrasIn.length; i++) {
+      let palavra2 = this.palavrasIn[i];
+      this.forcaService.inserirPalavra(palavra2);
+    }
+
+  }
   validar(letra: string) {
     if (!this.validaUsadas(letra)) {
-      if (this.erros <= 5) {
+      if (this.erros < 5) {
         let existe = false;
-        this.usadas = this.usadas + letra + "-";
+        this.usadas = this.usadas + letra;
         for (let i = 0; i < this.palavraSorteada.length; i++) {
           if (this.palavraSorteada[i].toUpperCase() === letra) {
             this.resposta[i] = letra;
@@ -70,9 +79,9 @@ export class JogoPage {
           this.alertaVitoria();
         }
       } else {
+        this.ranking = new Ranking();
         this.alertaDerota();
       }
-      this.letra = "";
     }
   }
 
@@ -87,7 +96,7 @@ export class JogoPage {
     console.log("Valida Resposta Final");
     let fim = 0;
     for (let i = 0; i < this.resposta.length; i++) {
-      if (this.palavraSorteada[i].toUpperCase() === this.resposta[i]) {
+      if (this.palavraSorteada.charAt(i).toUpperCase() == this.resposta[i]) {
         fim++;
       }
       if (fim === this.resposta.length) {
@@ -116,7 +125,7 @@ export class JogoPage {
       message: `Você acertou a palavra ${this.palavraSorteada}, siga em frente para somar mais pontos!`,
       buttons: [{
         text: 'Proxima',
-        handler: (alertData) => {
+        handler: () => {
           this.resetar();
           this.sortear();
         }
@@ -140,6 +149,7 @@ export class JogoPage {
         handler: (alertData) => {
           this.ranking.jogador = alertData.input1;
           this.ranking.pontos = this.pontos;
+          console.log(this.ranking);
           this.forcaService.inserir(this.ranking);
           this.router.navigate(['home']);
         }
@@ -150,7 +160,7 @@ export class JogoPage {
   async alertaUsado() {
     const alert = await this.alertController.create({
       header: 'Aviso!',
-      message: `A letra <strong>${this.letra}</strong> já foi utilizada, tente novamente com outra`,
+      message: `A letra já foi utilizada, tente novamente com outra`,
       buttons: ['OK']
     });
 

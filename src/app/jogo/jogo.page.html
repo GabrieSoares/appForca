@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>jogo</ion-title>
+    <ion-title>Jogo da Forca</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,30 +13,27 @@
       <img src="assets/img/4.jpg" *ngIf="erros == 4">
       <img src="assets/img/5.jpg" *ngIf="erros == 5">
       <img src="assets/img/fim.jpg" *ngIf="erros == 6">
-      <ion-label color="success">Categoria {{categoria}}</ion-label>
-      <br>
-      <ion-label *ngIf="erros >= 3" color="primary">dica: {{dica}}</ion-label>
+      <ion-label color="success">Categoria {{categoria}}</ion-label><br>
+      <ion-label *ngIf="erros >= 3" color="primary">Dica: {{dica}}</ion-label>
     </div>
 
     <ion-grid>
-      <ion-row color="danger">
+      <ion-row>
         <ion-col *ngFor="let ltr of resposta">
           &nbsp;{{ltr}}
         </ion-col>
       </ion-row>
     </ion-grid>
-    <br>
-    <br>
-
+    <ion-label>Letras Usadas: {{usadas}}</ion-label>
   </div>
 </ion-content>
 <ion-footer>
   <div class="ion-padding">
-    <ion-grid *ngIf="resposta.length > 0">
+    <ion-grid>
       <ion-row>
-        <ion-col *ngFor="let alf of alfabeto" (click)="validar(alf)" disabled="false" class="alfabeto">
-          <label>{{alf}}</label>
-        </ion-col>
+        <ion-button *ngFor="let alf of alfabeto" (click)="validar(alf)" color='success'>
+          {{alf}}
+        </ion-button>
       </ion-row>
     </ion-grid>
   </div>
